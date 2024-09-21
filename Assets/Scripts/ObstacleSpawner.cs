@@ -33,6 +33,9 @@ public class ObstacleSpawner : MonoBehaviour
         {
             Spawn();
 
+            // 새로운 장애물이 생성될때 점수를 업데이트 시켜줌 
+            GameManager.instance.UpdateScore();
+
             yield return new WaitForSeconds(spawnRate);
         }
     }
