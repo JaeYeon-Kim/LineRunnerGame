@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   
+    {
         // 마우스 왼쪽 클릭시 혹은 모바일에서 터치할 경우 
         if (Input.GetMouseButtonDown(0))
         {
@@ -23,7 +24,18 @@ public class PlayerController : MonoBehaviour
 
             transform.position = new Vector3(transform.position.x, playerYPos, transform.position.z);
 
-            
+
+        }
+    }
+
+    // 플레이어와 특정 물체가 trigger 할경우 호출 -> collision으로 정보가 들어옴 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // trigger한 객체가 장애물 일경우 
+        if (collision.gameObject.tag == "Obstacle")
+        {
+            // 장애물과 충돌했을 경우에 현재 게임 Scene을 재로드
+            SceneManager.LoadScene("Game");
         }
     }
 }
