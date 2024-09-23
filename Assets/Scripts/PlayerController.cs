@@ -45,12 +45,11 @@ public class PlayerController : MonoBehaviour
         // trigger한 객체가 장애물 일경우 
         if (collision.gameObject.tag == "Obstacle")
         {
-            // // 장애물과 충돌했을 경우에 현재 게임 Scene을 재로드
-            // SceneManager.LoadScene("Game");
-
-            // GameManager.instance.GameOver();    // GameManager의 GameOver 호출 
 
             GameManager.instance.UpdateLives();
+
+            // 플레이어와 장애물이 충돌했을 경우 카메라 흔들림 로직 추가 
+            GameManager.instance.Shake();
         }
     }
 }

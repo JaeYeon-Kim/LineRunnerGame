@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public bool gameStarted = false;    // 게임이 시작되었는지 알기 위한 변수 
 
+    Vector3 originalCamPos;
+
     [SerializeField] private GameObject player;           // player 변수 
     [SerializeField] private TextMeshProUGUI scoreText;       // 점수 UI 
     [SerializeField] private TextMeshProUGUI livesText;       // 생명력 UI 
@@ -28,6 +30,12 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        originalCamPos = Camera.main.transform.position;        // 카메라의 원래 위치 
+        Application.targetFrameRate = 60;
     }
 
     public void StartGame()
@@ -79,5 +87,28 @@ public class GameManager : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void Shake()
+    {
+        StartCoroutine("CameraShake");
+    }
+
+
+    // 카메라 흔들림 구현 
+    IEnumerator CameraShake()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            // insideUnitCircle 변경이 1인 원 안에서 랜덤좌표 반환 -> 0.5를 곱해주면 반경이 0.5인 원 
+            Vector2 randomPos = Random.insideUnitCircle * 0.5f;
+
+            // z값은 놔두고 x와 y만 랜덤값으로 
+            Camera.main.transform.position = new Vector3(randomPos.x, randomPos.y, originalCamPos.z);
+
+            yield return null;      // 현재 프레임이 완료될때 까지 대기 
+        }
+
+        Camera.main.transform.position = originalCamPos;
     }
 }
