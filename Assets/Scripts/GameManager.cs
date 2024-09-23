@@ -10,6 +10,9 @@ using UnityEngine.UI;
 */
 public class GameManager : MonoBehaviour
 {
+    public GameObject menuUI;
+    public GameObject gameplayUI;
+    public GameObject spawner;
     public static GameManager instance;
     public bool gameStarted = false;    // 게임이 시작되었는지 알기 위한 변수 
 
@@ -29,6 +32,10 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         gameStarted = true;
+
+        menuUI.SetActive(false);
+        gameplayUI.SetActive(true);
+        spawner.SetActive(true);
     }
 
     public void GameOver()
@@ -65,5 +72,10 @@ public class GameManager : MonoBehaviour
         score++;
         scoreText.text = "Score : " + score;        // 점수 UI 적용 
         print("Score: " + score);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
