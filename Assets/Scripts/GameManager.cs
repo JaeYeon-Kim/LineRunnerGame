@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject menuUI;
     public GameObject gameplayUI;
     public GameObject spawner;
+    public GameObject backgroundParticle;
     public static GameManager instance;
     public bool gameStarted = false;    // 게임이 시작되었는지 알기 위한 변수 
 
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
         menuUI.SetActive(false);
         gameplayUI.SetActive(true);
         spawner.SetActive(true);
+        backgroundParticle.SetActive(true);
     }
 
     public void GameOver()
